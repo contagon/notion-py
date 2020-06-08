@@ -21,7 +21,10 @@ class NotionDate(object):
     def __init__(self, start, end=None, timezone=None):
         self.start = start
         self.end = end
-        self.timezone = timezone or start.tzinfo
+        if isinstance(start, datetime):
+            self.timezone = timezone or start.tzinfo
+        else:
+            self.timezone = timezone
 
     @classmethod
     def from_notion(cls, obj):
